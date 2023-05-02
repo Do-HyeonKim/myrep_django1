@@ -6,6 +6,7 @@ from .models import *
 import os
 import datetime
 import json
+import pandas as pd
 
 # Create your views here.
 
@@ -25,7 +26,9 @@ def read_time_value(request) :
     # 파일 이름 생성
     current_time = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     file_name = f"{current_time}.txt"
+    file_name_csv = f"{current_time}.csv"
     file_path = os.path.join(folder_path, file_name)
+    file_path_csv = os.path.join(folder_path, file_name_csv)
     save_list = []
     
     status_model = StatusModel.objects.filter(run_date = current_date).order_by('-reg_dtm').first()
@@ -34,43 +37,52 @@ def read_time_value(request) :
         get_last_timestamp = status_model.last_timestamp
         print(get_last_timestamp)
         
-        test_file_path = os.getcwd() + '/test_2.txt'
-        # print(test_file_path)
-        with open(test_file_path,'r') as f :
-            for line in f:
-                data = json.loads(line)
-                save_list.append(data)
+        file_list = ['test_2.txt', 'test_3.txt']
+        print(file_list)
+
+        for file in file_list : 
+            print(file)
+            test_file_path = os.getcwd() + '/' + file
+            # print(test_file_path)
+            with open(test_file_path,'r') as f :
+                for line in f:
+                    data = json.loads(line)
+                    save_list.append(data)
 
 
-        new_save_list = []
-        for i in range(len(save_list)):
-            timestamp = save_list[i]['timestamp']
-            if int(timestamp) > int(get_last_timestamp):
-                print(int(timestamp))
-                new_save_list.append(save_list[i])
+            new_save_list = []
+            for i in range(len(save_list)):
+                timestamp = save_list[i]['timestamp']
+                if int(timestamp) > int(get_last_timestamp):
+                    print(int(timestamp))
+                    new_save_list.append(save_list[i])
 
-        print(new_save_list)
-        # 파일 쓰기
-        with open(file_path, "w") as f:
-            f.write(json.dumps(new_save_list))
-            # for data in save_list:
-            #     f.write(json.dumps(data) + "\n")
+            print(new_save_list)
+            # 파일 쓰기 1 
+            # with open(file_path, "w") as f:
+            #     f.write(json.dumps(new_save_list))
+                # for data in save_list:
+                #     f.write(json.dumps(data) + "\n")
+            # 파일 쓰기 2 - csv
+            df = pd.DataFrame(new_save_list)
+            df.to_csv(file_path_csv, index=False)
 
-        last_data = new_save_list[-1]
-        last_timestamp = last_data['timestamp']
-        print(last_timestamp)
+            if new_save_list : 
+                last_data = new_save_list[-1]
+                last_timestamp = last_data['timestamp']
+                print(last_timestamp)
 
-        status = {}
-        status['uuid'] = uuid
-        status['last_timestamp'] = last_timestamp
-        status['last_file_name'] = file_name
+                status = {}
+                status['uuid'] = uuid
+                status['last_timestamp'] = last_timestamp
+                status['last_file_name'] = file_name
 
-        status_ser = StatusSerializer(data=status)
-        print(status_ser.is_valid())
-        print(status_ser.errors)
+                status_ser = StatusSerializer(data=status)
+                print(status_ser.is_valid())
+                print(status_ser.errors)
 
-        if status_ser.is_valid() :
-             status_ser.save()
+                if status_ser.is_valid() :
+                    status_ser.save()
 
         return Response(new_save_list)
 
