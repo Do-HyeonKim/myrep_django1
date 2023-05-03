@@ -1,0 +1,52 @@
+[
+  {
+    "fruit": "apple",
+    "flavor": "sweet",
+    "color": "red"
+  },
+  {
+    "fruit": "banana",
+    "flavor": "sweet",
+    "color": "yellow"
+  },
+  {
+    "fruit": "orange",
+    "flavor": "citrus",
+    "color": "orange"
+  },
+  {
+    "fruit": "kiwi",
+    "flavor": "tart",
+    "color": "brown"
+  },
+  {
+    "fruit": "grape",
+    "flavor": "sweet",
+    "color": "purple"
+  },
+  {
+    "fruit": "mango",
+    "flavor": "sweet",
+    "color": "yellow"
+  },
+  {
+    "fruit": "pear",
+    "flavor": "crisp",
+    "color": "green"
+  },
+  {
+    "fruit": "pineapple",
+    "flavor": "tangy",
+    "color": "brown"
+  },
+  {
+    "fruit": "watermelon",
+    "flavor": "juicy",
+    "color": "green"
+  },
+  {
+    "fruit": "strawberry",
+    "flavor": "sweet",
+    "color": "red"
+  }
+]
