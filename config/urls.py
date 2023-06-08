@@ -21,4 +21,5 @@ urlpatterns = [
     path('dt/', include('data_test.urls')),
     path('dt2/', include('data_test2.urls')),
     path('dt3/', include('data_test3.urls')),
+    path('test/', include('scheduler_test.urls')),
 ]
