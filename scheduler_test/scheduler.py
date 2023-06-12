@@ -88,6 +88,10 @@ def run_download(app_name, url, save_dir, status) :
             print (e)
             AppInfoModel.objects.filter(app_name = app_name).update(status="errored")
 
+    elif status == "pause" :
+        scheduler.pause_job(app_name)
+        print("pause job")
+
     else : 
         print(app_name , "status ==" , status)
         return

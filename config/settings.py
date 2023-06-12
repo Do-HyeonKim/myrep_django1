@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'data_test2',
     'data_test3',
     'scheduler_test',
+    'query_test',
 ]
 
 MIDDLEWARE = [
