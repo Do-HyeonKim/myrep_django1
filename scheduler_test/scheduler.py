@@ -3,9 +3,10 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import * 
 from .serializer import *
-import requests
 from pathlib import Path
 from datetime import datetime, timedelta
+import json
+import requests
 
 scheduler = BackgroundScheduler()
 
@@ -66,12 +67,17 @@ def run_download(app_name, url, save_dir, status) :
             response = requests.post(url,data=args)
 
             if response.status_code ==200 : 
+                res = response.text
+                res_json = json.loads(res)
+                save_start_date = res_json['start_date']
+                save_end_date = res_json['end_date']
+        
                 # log rdbms save 
                 log = {}
                 log['app_name'] = app_name
                 log['status'] = "complete"
-                log['start_date'] = start_date
-                log['end_date'] = get_latest_folder(save_dir)
+                log['start_date'] = save_start_date
+                log['end_date'] = save_end_date
 
                 log_serializer = AppDownloadLogSerializer(data=log)
 
@@ -80,7 +86,7 @@ def run_download(app_name, url, save_dir, status) :
                     print("save")
 
                 AppInfoModel.objects.filter(app_name = app_name).update(status="waiting" 
-                                 ,start_date=get_next_day(get_latest_folder(save_dir)) )
+                                 ,start_date=get_next_day(save_end_date) )
             else :
                 print("errored : ", response.status_code ) 
                 AppInfoModel.objects.filter(app_name = app_name).update(status="errored")

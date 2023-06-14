@@ -11,7 +11,7 @@ def run(request):
     save_dir = request.data.get('save_dir')
 
     # 오늘 날짜부터 7일 전 날짜 가져오기
-    end_date = datetime.today() 
+    end_date = datetime.today()
     # 시작 날짜 변환
     start_date = datetime.strptime(start_date_str, "%Y-%m-%d")
 
@@ -25,7 +25,10 @@ def run(request):
         folder_path = os.path.join(save_dir, folder_name)
         os.makedirs(folder_path, exist_ok=True)
 
-    return Response("ok")
+    return Response({   
+        "start_date" :start_date.date() ,
+        "end_date" : end_date.date()
+        })
 
 
 

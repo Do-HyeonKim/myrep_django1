@@ -23,4 +23,5 @@ urlpatterns = [
     path('dt3/', include('data_test3.urls')),
     path('test/', include('scheduler_test.urls')),
     path('query/', include('query_test.urls')),
+    path('web/', include('webcra.urls')),
 ]
