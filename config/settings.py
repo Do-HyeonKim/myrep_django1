@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'data_test3',
     'scheduler_test',
     'query_test',
+    'query_test2',
     'webcra',
 ]
 

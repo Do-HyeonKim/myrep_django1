@@ -66,39 +66,44 @@ def test3(request) :
     service = ChromeService(executable_path=path)
     driver = webdriver.Chrome(service=  service , options=options)
 
-    url = "https://www.29cm.co.kr/shop/category/list?category_large_code=273100100&category_medium_code=&sort=new"
+    url = "https://shopping.naver.com/living/homeliving/home"
 
     driver.get(url)
     driver.maximize_window()
 
     time.sleep(3)
 
-    # body = driver.find_element(By.CSS_SELECTOR, 'div.N4FjMb.Z97G4e')
-    # move_titles = body.find_elements(By.CSS_SELECTOR, 'div.Epkrse')
-    # 이전에 가져온 요소들을 저장할 변수
-
     # 스크롤 내리기
-    actions = ActionChains(driver)
-    # actions.move_to_element(body)
-    actions.send_keys(Keys.END)
-    time.sleep(5)
-    actions.perform()
+    # actions = ActionChains(driver)
+    # actions.send_keys(Keys.END)
+    # actions.perform()
 
-    # 잠시 대기
-    # time.sleep(20)
+    # html = driver.page_source
+    # soup = BeautifulSoup(html, 'html.parser')
 
-    html = driver.page_source
-    soup = BeautifulSoup(html, 'html.parser')
+    # titles = soup.find_all('p', class_='e1bUyeKcqU')
 
-    titles = soup.find_all('div', class_='name')
+    # title_list=  []
+    # for title in titles : 
+    #     title_list.append(title.get_text())
 
+    # print(title_list)
+
+    scroll_time = 20
     title_list=  []
-    for title in titles : 
-        title_list.append(title.get_text())
-
+    actions = ActionChains(driver)
+    for i in range(0,scroll_time) : 
+        names  = driver.find_elements(By.CSS_SELECTOR, 'p.e1bUyeKcqU')
+        for name in names : 
+            value = name.text 
+            if value not in title_list :
+                title_list.append(value)
+        actions.send_keys(Keys.PAGE_DOWN)
+        actions.perform()
+        time.sleep(3)
+        
     print(title_list)
-
-
+    return Response({"title" : title_list})
     # list insert 코드 여기 부분 추가 
     # orm인 경우 .exsist()로 확인 orm | 아닌 경우 count =1 있는지 확인 후 없는경우에만 insert 로직 실행
     # list별로 url 돌아야함 
@@ -113,7 +118,7 @@ def test3(request) :
     # 두번째 영역 저장 시에는 where 조건문에 id / param 둘 다 비교해야함 [ 저장 시 저장 날짜 year-month ] 
 
 
-    return Response()
+   
 
 
 @api_view(['POST'])
@@ -159,5 +164,32 @@ def test2(request) :
 
     # 데이터 출력
     print(b_list)
+
+    return Response()
+
+@api_view(['POST'])
+def login_test(request) : 
+    options = webdriver.ChromeOptions()
+    # 코드가 동작이 끝나도 브라우저가 종료되지 않는 옵션 추가
+    options.add_experimental_option("detach", True) 
+    # 크롬 드라이버 경로
+    path  = 'C:\\chromedriver\\chromedriver.exe'
+    service = ChromeService(executable_path=path)
+    driver = webdriver.Chrome(service= service , options=options)
+ 
+    # 자동 로그인 실행할 주소 [로그인 페이지]
+    url = "https://accounts.kakao.com/login/?continue=https%3A%2F%2Flogins.daum.net%2Faccounts%2Fksso.do%3Frescue%3Dtrue%26url%3Dhttps%253A%252F%252Fwww.daum.net#login"
+
+    # 로그인 페이지로 이동
+    driver.get(url)
+    # 창 크기 전체로 조정
+    driver.maximize_window()
+
+    time.sleep(3)
+
+    driver.find_element(By.XPATH, '//input[@type="text"]').send_keys('test_id')
+    driver.find_element(By.XPATH, '//input[@type="password"]').send_keys('test_pw')
+    driver.find_element(By.XPATH, '//button[@type="submit"]').click()
+
 
     return Response()

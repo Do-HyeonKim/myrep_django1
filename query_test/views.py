@@ -47,17 +47,6 @@ def get_field_list(table_name,data_num) :
 
 
 def get_where_condition(partition_value) :
-    # where_condition = "WHERE "
-    # where_values = []
-
-    # conditions = []
-    # for key, value in partition_value.items():
-    #     condition = f"{key} = {value}"
-    #     conditions.append(condition)
-    #     where_values.append(value)
-
-    # where_condition += " AND ".join(conditions)
-    # return where_condition, where_values
     where_query = "WHERE "
 
 
