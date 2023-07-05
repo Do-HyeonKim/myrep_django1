@@ -25,4 +25,5 @@ urlpatterns = [
     path('query/', include('query_test.urls')),
     path('query2/', include('query_test2.urls')),
     path('web/', include('webcra.urls')),
+    path('test3/', include('test3.urls')),
 ]

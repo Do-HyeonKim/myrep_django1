@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'query_test',
     'query_test2',
     'webcra',
+    'test3',
 ]
 
 MIDDLEWARE = [
