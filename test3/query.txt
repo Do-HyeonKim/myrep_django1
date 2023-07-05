@@ -1,0 +1,77 @@
+{
+"id":1,
+"filter" : [{"colType" : "int"},{"nameEn" : "id"},{"value" : "2"}],
+	"child":{
+	"filter" : [],
+	"id":2,
+	"mapKey" : [
+	{"id" :"3" , "cols":[{"from":"id", "to":"id"}]}
+	],
+		"child" : {
+		"filter" : [],
+		"id":3,
+		"mapKey" : [
+		{"id" :"4" , "cols":[{"from":"id", "to":"id"}]}
+		],
+			"child":{
+			"filter" : [],
+			"id":4,
+			"mapKey" : [
+			{"id" :"1" , "cols":[{"from":"id", "to":"id"}]}
+			]}
+			}
+	},
+	"mapKey" : [
+	{"id" :"2" , "cols":[{"from":"id", "to":"id"}]}
+]
+}
+
+
+
+
+{
+"id":1,
+"filter" : [{"colType" : "int"},{"nameEn" : "id"},{"value" : "2"}],
+"child":{
+	"filter" : [],
+	"id":2,
+	"mapKey" : [
+	{"id" :"3" , "cols":[{"from":"id", "to":"id"}]}
+	],
+	"child" : {
+		"filter" : [],
+		"id":3,
+		"mapKey" : [
+		{"id" :"4" , "cols":[{"from":"id", "to":"id"}]}
+		]	
+		}
+		},
+"mapKey" : [
+{"id" :"2" , "cols":[{"from":"id", "to":"id"}]}
+]
+}
+
+
+{
+"id":1,
+"filter" : [{"colType" : "int"},{"nameEn" : "id"},{"value" : "2"}],
+"child":{
+	"filter" : [],
+	"id":2,
+	"mapKey" : [
+	{"id" :"3" , "cols":[{"from":"id", "to":"id"}]}
+	]
+	},
+"mapKey" : [
+{"id" :"2" , "cols":[{"from":"id", "to":"id"}]}
+]
+}
+
+
+{
+"id":1,
+"filter" : [{"colType" : "int"},{"nameEn" : "id"},{"value" : "2"}],
+"mapKey" : [
+{"id" :"2" , "cols":[{"from":"id", "to":"id"}]}
+]
+}
